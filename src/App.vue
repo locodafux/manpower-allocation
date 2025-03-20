@@ -5,20 +5,15 @@ import * as XLSX from 'xlsx';
 const manpower = ref(0);
 const remainingManpower = ref(0);
 const allocationTable = ref([]);
-
-const locations = [
-  { name: 'Vital Location 1', type: 'Vital' },
-  { name: 'Vital Location 2', type: 'Vital' },
-  { name: 'Vital Location 3', type: 'Vital' },
-  { name: 'Controlled Location 1', type: 'Controlled' },
-  { name: 'Controlled Location 2', type: 'Controlled' },
-  { name: 'Controlled Location 3', type: 'Controlled' },
-  { name: 'Normal Location 1', type: 'Normal' },
-  { name: 'Normal Location 2', type: 'Normal' },
-  { name: 'Normal Location 3', type: 'Normal' }
-];
+const locations = ref([]);
+const dataUploaded = ref(false);
 
 const allocateManpower = () => {
+  if (!dataUploaded.value) {
+    alert('Please upload data from Excel first.');
+    return;
+  }
+  
   let totalManpower = parseInt(manpower.value);
   if (isNaN(totalManpower) || totalManpower < 1) {
     alert('Please enter a valid manpower number.');
@@ -28,32 +23,51 @@ const allocateManpower = () => {
   let allocation = [];
   let remaining = totalManpower;
 
-  locations.filter(loc => loc.type === 'Vital').forEach(loc => {
-    let assigned = Math.min(3, remaining);
-    allocation.push({ ...loc, manpower: assigned });
+  locations.value.forEach(loc => allocation.push({ ...loc, manpower: 0 }));
+
+  let vitalLocations = allocation.filter(loc => loc.type === 'Vital');
+  let controlledLocations = allocation.filter(loc => loc.type === 'Controlled');
+  let normalLocations = allocation.filter(loc => loc.type === 'Normal');
+
+  vitalLocations.forEach(loc => {
+    let assigned = Math.min(2, remaining);
+    loc.manpower = assigned;
     remaining -= assigned;
   });
 
-  locations.filter(loc => loc.type === 'Controlled').forEach(loc => {
+  controlledLocations.forEach(loc => {
     if (remaining > 0) {
-      allocation.push({ ...loc, manpower: 1 });
+      loc.manpower = 1;
       remaining -= 1;
     }
   });
 
-  locations.filter(loc => loc.type === 'Normal').forEach(loc => {
+  vitalLocations.forEach(loc => {
+    if (remaining > 0 && loc.manpower < 3) {
+      let extra = Math.min(3 - loc.manpower, remaining);
+      loc.manpower += extra;
+      remaining -= extra;
+    }
+  });
+
+
+  normalLocations.forEach(loc => {
     if (remaining > 0) {
       let assigned = Math.min(3, remaining);
-      allocation.push({ ...loc, manpower: assigned });
+      loc.manpower = assigned;
       remaining -= assigned;
     }
   });
 
   allocationTable.value = allocation;
-  remainingManpower.value = remaining;
+  remainingManpower.value = Math.max(remaining, 0);
 };
 
 const exportToExcel = () => {
+  if (allocationTable.value.length === 0) {
+    alert('No data to export. Please upload and allocate manpower first.');
+    return;
+  }
   let wb = XLSX.utils.book_new();
   let ws = XLSX.utils.json_to_sheet(allocationTable.value);
   XLSX.utils.book_append_sheet(wb, ws, 'Manpower Allocation');
@@ -70,11 +84,13 @@ const importFromExcel = (event) => {
     let workbook = XLSX.read(data, { type: 'array' });
     let sheet = workbook.Sheets[workbook.SheetNames[0]];
     let json = XLSX.utils.sheet_to_json(sheet);
-    allocationTable.value = json.map(row => ({
+    locations.value = json.map(row => ({
       name: row['Location'] || '',
       type: row['Type'] || '',
-      manpower: row['Allocated Manpower'] || 0
+      manpower: 0
     }));
+    allocationTable.value = locations.value;
+    dataUploaded.value = true;
   };
   reader.readAsArrayBuffer(file);
 };
@@ -86,10 +102,10 @@ const importFromExcel = (event) => {
     <label for="manpower">Enter Total Manpower:</label>
     <input type="number" v-model="manpower" min="1" />
     <button @click="allocateManpower">Allocate</button>
-    <button @click="exportToExcel">Export to Excel</button>
+    <button @click="exportToExcel" :disabled="allocationTable.length === 0">Export to Excel</button>
     <input type="file" accept=".xlsx" @change="importFromExcel" />
 
-    <table>
+    <table v-if="allocationTable.length > 0">
       <thead>
         <tr>
           <th>Location</th>
@@ -105,6 +121,8 @@ const importFromExcel = (event) => {
         </tr>
       </tbody>
     </table>
+    <p v-else>No record found. Please upload data from Excel first.</p>
+
     <h3>Remaining Manpower: <span>{{ remainingManpower }}</span></h3>
   </div>
 </template>
