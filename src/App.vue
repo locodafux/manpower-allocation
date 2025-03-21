@@ -89,7 +89,7 @@ export default {
       allocationTable: [],
       locations: [],
       dataUploaded: false,
-      darkMode: false
+      darkMode: true 
     };
   },
   methods: {
