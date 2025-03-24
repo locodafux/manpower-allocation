@@ -18,6 +18,7 @@
         </label>
       </div>
 
+
       <div class="mb-3">
         <label for="manpower" class="block text-sm mb-3">Enter Total Manpower:</label>
         <input type="number" v-model="manpower" min="1"
@@ -28,10 +29,12 @@
       <div class="flex gap-2 mb-3">
         <button @click="allocateManpower"
           class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm">Allocate</button>
+          <!-- 
         <button @click="exportToExcel" :disabled="allocationTable.length === 0"
           class="bg-green-500 hover:bg-green-600 text-white px-3 py-1.5 rounded-md text-sm disabled:opacity-50">Export</button>
+           -->
       </div>
-      <div class="mb-5">
+      <!-- <div class="mb-5">
 
         <div class="mb-5">
           <label for="excel-upload" class="block text-sm font-medium"
@@ -46,9 +49,9 @@
             <span class="text-gray-600 dark:text-gray-300 text-sm">Click to upload or drag & drop</span>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div v-if="allocationTable.length > 0" class="overflow-x-auto">
+      <div  class="overflow-x-auto">
         <table class="w-full border-collapse border border-gray-300 dark:border-gray-700 text-sm">
           <thead class="bg-gray-200 dark:bg-gray-800">
             <tr>
@@ -67,10 +70,10 @@
         </table>
       </div>
 
-      <p
+      <!-- <p
         class="bg-white text-black dark:bg-black dark:text-white p-3 border border-gray-300 dark:border-gray-700 rounded-md text-sm text-center">
         No records available. Please upload an Excel file and allocate manpower.
-      </p>
+      </p> -->
 
       <h3 class="mt-3 text-base font-medium">Remaining Manpower: <span class="text-blue-500">{{ remainingManpower
       }}</span></h3>
@@ -86,18 +89,52 @@ export default {
     return {
       manpower: 0,
       remainingManpower: 0,
-      allocationTable: [],
-      locations: [],
+      allocationTable: [ ],
+      locations: [
+      { name: 'Location 1', type: 'Vital', manpower: 0 },
+        { name: 'Location 2', type: 'Vital', manpower: 0 },
+        { name: 'Location 3', type: 'Vital', manpower: 0 },
+        { name: 'Location 4', type: 'Controlled', manpower: 0 },
+        { name: 'Location 5', type: 'Controlled', manpower: 0 },
+        { name: 'Location 6', type: 'Controlled', manpower: 0 },
+        { name: 'Location 7', type: 'Normal', manpower: 0 },
+        { name: 'Location 8', type: 'Normal', manpower: 0 },
+        { name: 'Location 9', type: 'Normal', manpower: 0 },
+        { name: 'Location 10', type: 'Vital', manpower: 0 },
+        { name: 'Location 11', type: 'Vital', manpower: 0 },
+        { name: 'Location 12', type: 'Vital', manpower: 0 },
+        { name: 'Location 13', type: 'Controlled', manpower: 0 },
+        { name: 'Location 14', type: 'Controlled', manpower: 0 },
+        { name: 'Location 15', type: 'Controlled', manpower: 0 },
+        { name: 'Location 16', type: 'Normal', manpower: 0 },
+        { name: 'Location 17', type: 'Normal', manpower: 0 },
+        { name: 'Location 18', type: 'Normal', manpower: 0 },
+        { name: 'Location 19', type: 'Vital', manpower: 0 },
+        { name: 'Location 20', type: 'Vital', manpower: 0 },
+        { name: 'Location 21', type: 'Vital', manpower: 0 },
+        { name: 'Location 22', type: 'Controlled', manpower: 0 },
+        { name: 'Location 23', type: 'Controlled', manpower: 0 },
+        { name: 'Location 24', type: 'Controlled', manpower: 0 },
+        { name: 'Location 25', type: 'Normal', manpower: 0 },
+        { name: 'Location 26', type: 'Normal', manpower: 0 },
+        { name: 'Location 27', type: 'Normal', manpower: 0 },
+        { name: 'Location 28', type: 'Vital', manpower: 0 },
+        { name: 'Location 29', type: 'Vital', manpower: 0 },
+        { name: 'Location 30', type: 'Controlled', manpower: 0 },
+        { name: 'Location 31', type: 'Controlled', manpower: 0 },
+        { name: 'Location 32', type: 'Normal', manpower: 0 },
+        { name: 'Location 33', type: 'Normal', manpower: 0 }
+      ],
       dataUploaded: false,
       darkMode: true 
     };
   },
   methods: {
     allocateManpower() {
-      if (!this.dataUploaded) {
-        alert('Please upload data from Excel first.');
-        return;
-      }
+      // if (!this.dataUploaded) {
+      //   alert('Please upload data from Excel first.');
+      //   return;
+      // }
 
       let totalManpower = parseInt(this.manpower);
       if (isNaN(totalManpower) || totalManpower < 1) {
