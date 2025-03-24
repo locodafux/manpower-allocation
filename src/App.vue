@@ -1,168 +1,211 @@
 <template>
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 flex-grow">
+    <!-- Title Section -->
+    <div class="text-center mb-8 sm:mb-12">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-2 text-transparent bg-clip-text bg-gradient-to-b from-black/80 to-white/80">
+        Manpower Allocation
+      </h1>
+      <p class="text-xs sm:text-xl text-black/80">
+        Allocate manpower to the locations below
+      </p>
+    </div>
 
-  <div :class="{ 'dark bg-gray-900 text-white': darkMode }"
-    class="min-h-screen p-4 md:p-10 transition-colors flex justify-center">
-    <div :class="{ 'bg-gray-900 text-white': darkMode, 'bg-white text-black': !darkMode }"
-      class="w-full max-w-4xl p-4 md:p-10 rounded-lg shadow-lg transition-colors overflow-auto">
-
-      <div class="flex justify-between items-center mb-3">
-        <h2 class="text-xl font-semibold">Manpower Allocation</h2>
-        <label class="flex items-center cursor-pointer text-sm">
-          <span class="mr-2">Dark Mode</span>
-          <input type="checkbox" v-model="darkMode" class="hidden" />
-          <div class="relative w-10 h-5 bg-gray-300 dark:bg-gray-700 rounded-full transition-all flex items-center">
-            <div class="absolute w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300"
-              :class="{ 'translate-x-5': darkMode, 'translate-x-1': !darkMode }">
-            </div>
-          </div>
-        </label>
-      </div>
-
-
-      <div class="mb-3">
-        <label for="manpower" class="block text-sm mb-3">Enter Total Manpower:</label>
-        <input type="number" v-model="manpower" min="1"
-          :class="{ 'bg-gray-100 text-black': !darkMode, 'bg-gray-700 text-white': darkMode }"
-          class="w-full p-1.5 border rounded-md transition-colors text-sm" />
-      </div>
-
-      <div class="flex gap-2 mb-3">
-        <button @click="allocateManpower"
-          class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm">Allocate</button>
-          <!-- 
-        <button @click="exportToExcel" :disabled="allocationTable.length === 0"
-          class="bg-green-500 hover:bg-green-600 text-white px-3 py-1.5 rounded-md text-sm disabled:opacity-50">Export</button>
-           -->
-      </div>
-      <!-- <div class="mb-5">
-
-        <div class="mb-5">
-          <label for="excel-upload" class="block text-sm font-medium"
-            :class="{ 'text-black': !darkMode, 'text-white': darkMode }">
-            Upload Excel File
-          </label>
-
-          <div
-            class="relative flex items-center justify-center w-full p-4 border-2 border-dashed border-gray-300 dark:border-gray-500 rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-800 hover:border-blue-500 dark:hover:border-blue-400 transition">
-            <input id="excel-upload" type="file" accept=".xlsx" @change="importFromExcel"
-              class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-            <span class="text-gray-600 dark:text-gray-300 text-sm">Click to upload or drag & drop</span>
-          </div>
+    <div class="flex flex-col lg:flex-row gap-8 justify-center">
+      <!-- Filters Section -->
+      <div class="w-full lg:w-1/4 flex flex-col space-y-8">
+        <div class="rounded-lg bg-black/4 p-6">
+          <h3 class="text-sm font-medium text-gray-700 mb-4">
+            Enter Total Manpower
+          </h3>
+          <input
+            type="number"
+            id="manpower"
+            class="h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            v-model="manpower"
+            placeholder="Enter Total Manpower"
+          />
+          <button
+            class="mt-4 w-full bg-black/70 text-white py-2 rounded-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-gray-400"
+            @click="allocateManpower"
+          >
+            Allocate Manpower
+          </button>
         </div>
-      </div> -->
 
-      <div  class="overflow-x-auto">
-        <table class="w-full border-collapse border border-gray-300 dark:border-gray-700 text-sm">
-          <thead class="bg-gray-200 dark:bg-gray-800">
-            <tr>
-              <th class="border border-gray-300 dark:border-gray-700 p-1.5">Location</th>
-              <th class="border border-gray-300 dark:border-gray-700 p-1.5">Type</th>
-              <th class="border border-gray-300 dark:border-gray-700 p-1.5">Allocated</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(row, index) in allocationTable" :key="index" class="text-center">
-              <td class="border border-gray-300 dark:border-gray-700 p-1.5">{{ row.name }}</td>
-              <td class="border border-gray-300 dark:border-gray-700 p-1.5">{{ row.type }}</td>
-              <td class="border border-gray-300 dark:border-gray-700 p-1.5">{{ row.manpower }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="rounded-lg bg-black/4 p-6">
+          <h3 class="text-sm font-medium text-gray-700 mb-4">Filters</h3>
+          <input
+            type="text"
+            v-model="searchQuery"
+            class="h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            placeholder="Search Location"
+          />
+          <select
+            v-model="selectedType"
+            class="mt-4 h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400"
+          >
+            <option value="">Filter by Type</option>
+            <option value="Vital">Vital</option>
+            <option value="Controlled">Controlled</option>
+            <option value="Normal">Normal</option>
+          </select>
+          <button
+            class="mt-4 w-full bg-black/80 text-white py-2 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            @click="applyFilters"
+          >
+            Apply Filters
+          </button>
+        </div>
       </div>
 
-      <!-- <p
-        class="bg-white text-black dark:bg-black dark:text-white p-3 border border-gray-300 dark:border-gray-700 rounded-md text-sm text-center">
-        No records available. Please upload an Excel file and allocate manpower.
-      </p> -->
+      <!-- Allocation Table Section -->
+      <div class="w-full lg:w-3/4 bg-black/4 rounded-lg p-6">
+        <div v-if="paginatedData.length">
+          <!-- Table Section -->
+          <table class="w-full table-auto text-sm">
+            <thead class="bg-black/80 text-white">
+              <tr>
+                <th class="px-3 py-2 text-left font-medium">Location</th>
+                <th class="px-3 py-2 text-left font-medium w-20">Type</th>
+                <th class="px-3 py-2 text-left font-medium w-20">Allocated</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(location, index) in paginatedData"
+                :key="index"
+                @click="selectRow(index)"
+                class="hover:bg-gray-100 cursor-pointer"
+              >
+                <td class="border px-3 py-2 text-gray-700">
+                  {{ location.name }}
+                </td>
+                <td class="border px-3 py-2 w-20">
+                  <span
+                    v-if="location.type === 'Vital'"
+                    class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded-sm"
+                    >Vital</span
+                  >
+                  <span
+                    v-if="location.type === 'Controlled'"
+                    class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-sm"
+                    >Controlled</span
+                  >
+                  <span
+                    v-if="location.type === 'Normal'"
+                    class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded-sm"
+                    >Normal</span
+                  >
+                </td>
+                <td class="border px-3 py-2 text-center text-gray-700 w-20">
+                  {{ location.manpower }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
-      <h3 class="mt-3 text-base font-medium">Remaining Manpower: <span class="text-blue-500">{{ remainingManpower
-      }}</span></h3>
+          <!-- Pagination and Manpower Section -->
+          <tfoot v-if="totalPages > 1">
+            <tr>
+              <td colspan="6" class="px-4 py-3">
+                <div class="w-full flex justify-between items-center">
+                  <button
+                    @click="previousPage"
+                    :disabled="currentPage === 1"
+                    class="px-4 py-2 bg-gray-200 text-black/80 rounded-md text-sm disabled:opacity-50 hover:bg-black/10 inline-block"
+                  >
+                    Previous
+                  </button>
+                  <span class="text-sm mx-4 text-black/80 inline-block">
+                    Page {{ currentPage }} of {{ totalPages }}
+                  </span>
+                  <button
+                    @click="nextPage"
+                    :disabled="currentPage === totalPages"
+                    class="px-4 py-2 bg-gray-200 text-black/80 rounded-md text-sm disabled:opacity-50 hover:bg-black/10 inline-block"
+                  >
+                    Next
+                  </button>
+                  <span class="text-sm pl-34 text-black/80 ml-auto inline-block">
+                    Remaining Manpower: {{ remainingManpower }}
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </tfoot>
+
+        </div>
+        <div v-else class="flex items-center justify-center h-full">
+          <p class="text-lg text-gray-500">
+            Your manpower allocation results will be shown here.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import * as XLSX from 'xlsx';
+import locationsData from "./locations/locations.json";
 
 export default {
   data() {
     return {
-      manpower: 0,
+      manpower: "",
+      locations: locationsData,
+      filteredLocations: [],
+      currentPage: 1,
+      perPage: 10,
       remainingManpower: 0,
-      allocationTable: [ ],
-      locations: [
-      { name: 'Location 1', type: 'Vital', manpower: 0 },
-        { name: 'Location 2', type: 'Vital', manpower: 0 },
-        { name: 'Location 3', type: 'Vital', manpower: 0 },
-        { name: 'Location 4', type: 'Controlled', manpower: 0 },
-        { name: 'Location 5', type: 'Controlled', manpower: 0 },
-        { name: 'Location 6', type: 'Controlled', manpower: 0 },
-        { name: 'Location 7', type: 'Normal', manpower: 0 },
-        { name: 'Location 8', type: 'Normal', manpower: 0 },
-        { name: 'Location 9', type: 'Normal', manpower: 0 },
-        { name: 'Location 10', type: 'Vital', manpower: 0 },
-        { name: 'Location 11', type: 'Vital', manpower: 0 },
-        { name: 'Location 12', type: 'Vital', manpower: 0 },
-        { name: 'Location 13', type: 'Controlled', manpower: 0 },
-        { name: 'Location 14', type: 'Controlled', manpower: 0 },
-        { name: 'Location 15', type: 'Controlled', manpower: 0 },
-        { name: 'Location 16', type: 'Normal', manpower: 0 },
-        { name: 'Location 17', type: 'Normal', manpower: 0 },
-        { name: 'Location 18', type: 'Normal', manpower: 0 },
-        { name: 'Location 19', type: 'Vital', manpower: 0 },
-        { name: 'Location 20', type: 'Vital', manpower: 0 },
-        { name: 'Location 21', type: 'Vital', manpower: 0 },
-        { name: 'Location 22', type: 'Controlled', manpower: 0 },
-        { name: 'Location 23', type: 'Controlled', manpower: 0 },
-        { name: 'Location 24', type: 'Controlled', manpower: 0 },
-        { name: 'Location 25', type: 'Normal', manpower: 0 },
-        { name: 'Location 26', type: 'Normal', manpower: 0 },
-        { name: 'Location 27', type: 'Normal', manpower: 0 },
-        { name: 'Location 28', type: 'Vital', manpower: 0 },
-        { name: 'Location 29', type: 'Vital', manpower: 0 },
-        { name: 'Location 30', type: 'Controlled', manpower: 0 },
-        { name: 'Location 31', type: 'Controlled', manpower: 0 },
-        { name: 'Location 32', type: 'Normal', manpower: 0 },
-        { name: 'Location 33', type: 'Normal', manpower: 0 }
-      ],
-      dataUploaded: false,
-      darkMode: true 
+      searchQuery: "",
+      selectedType: "",
+      selectedRow: null,
     };
   },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.filteredLocations.length / this.perPage);
+    },
+    paginatedData() {
+      const start = (this.currentPage - 1) * this.perPage;
+      const end = start + this.perPage;
+      return this.filteredLocations.slice(start, end);
+    },
+  },
   methods: {
+    selectRow(index) {
+      this.selectedRow = this.selectedRow === index ? null : index;
+    },
     allocateManpower() {
-      // if (!this.dataUploaded) {
-      //   alert('Please upload data from Excel first.');
-      //   return;
-      // }
-
       let totalManpower = parseInt(this.manpower);
       if (isNaN(totalManpower) || totalManpower < 1) {
-        alert('Please enter a valid manpower number.');
+        alert("Please enter a valid manpower number.");
         return;
       }
 
-      let allocation = this.locations.map(loc => ({ ...loc, manpower: 0 }));
+      let allocation = this.locations.map((loc) => ({ ...loc, manpower: 0 }));
       let remaining = totalManpower;
 
-      let vitalLocations = allocation.filter(loc => loc.type === 'Vital');
-      let controlledLocations = allocation.filter(loc => loc.type === 'Controlled');
-      let normalLocations = allocation.filter(loc => loc.type === 'Normal');
+      let vitalLocations = allocation.filter((loc) => loc.type === "Vital");
+      let controlledLocations = allocation.filter(
+        (loc) => loc.type === "Controlled"
+      );
+      let normalLocations = allocation.filter((loc) => loc.type === "Normal");
 
-      vitalLocations.forEach(loc => {
+      vitalLocations.forEach((loc) => {
         let assigned = Math.min(2, remaining);
         loc.manpower = assigned;
         remaining -= assigned;
       });
 
-      controlledLocations.forEach(loc => {
+      controlledLocations.forEach((loc) => {
         if (remaining > 0) {
           loc.manpower = 1;
           remaining -= 1;
         }
       });
 
-      vitalLocations.forEach(loc => {
+      vitalLocations.forEach((loc) => {
         if (remaining > 0 && loc.manpower < 3) {
           let extra = Math.min(3 - loc.manpower, remaining);
           loc.manpower += extra;
@@ -170,7 +213,7 @@ export default {
         }
       });
 
-      normalLocations.forEach(loc => {
+      normalLocations.forEach((loc) => {
         if (remaining > 0) {
           let assigned = Math.min(3, remaining);
           loc.manpower = assigned;
@@ -178,40 +221,57 @@ export default {
         }
       });
 
-      this.allocationTable = allocation;
+      this.locations = allocation; // Update original locations with allocation
+      this.filteredLocations = allocation; // Also update filteredLocations
       this.remainingManpower = Math.max(remaining, 0);
     },
-    exportToExcel() {
-      if (this.allocationTable.length === 0) {
-        alert('No data to export. Please upload and allocate manpower first.');
-        return;
-      }
-      let wb = XLSX.utils.book_new();
-      let ws = XLSX.utils.json_to_sheet(this.allocationTable);
-      XLSX.utils.book_append_sheet(wb, ws, 'Manpower Allocation');
-      XLSX.writeFile(wb, 'Manpower_Allocation.xlsx');
+    applyFilters() {
+      let filteredData = this.locations.filter((location) => {
+        const matchesSearch = location.name
+          .toLowerCase()
+          .includes(this.searchQuery.toLowerCase());
+        const matchesType = this.selectedType
+          ? location.type === this.selectedType
+          : true;
+        return matchesSearch && matchesType;
+      });
+
+      this.filteredLocations = filteredData;
+      this.currentPage = 1; // Reset to first page when filters are applied
     },
-    importFromExcel(event) {
-      let file = event.target.files[0];
-      if (!file) return;
-
-      let reader = new FileReader();
-      reader.onload = (e) => {
-        let data = new Uint8Array(e.target.result);
-        let workbook = XLSX.read(data, { type: 'array' });
-        let sheet = workbook.Sheets[workbook.SheetNames[0]];
-        let json = XLSX.utils.sheet_to_json(sheet);
-
-        this.locations = json.map(row => ({
-          name: row['Location'] || '',
-          type: row['Type'] || '',
-          manpower: 0
-        }));
-        this.allocationTable = this.locations;
-        this.dataUploaded = true;
-      };
-      reader.readAsArrayBuffer(file);
-    }
-  }
+    previousPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+      }
+    },
+  },
 };
 </script>
+
+<style scoped>
+/* Table and Pagination Styling */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  text-align: left;
+  border: 1px solid #e0e0e0;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button:hover {
+  background-color: #333;
+}
+</style>
