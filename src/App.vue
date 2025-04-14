@@ -51,7 +51,7 @@
             class="mt-4 h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400">
             <option value="">Filter by Type</option>
             <option value="Vital">Vital</option>
-            <option value="Controlled">Controlled</option>
+            <option value="Non-Vital">Non-Vital</option>
             <option value="Normal">Normal</option>
           </select>
           <button
@@ -72,7 +72,7 @@
             <thead class="bg-black/80 text-white">
               <tr>
                 <th class="px-3 py-2 text-left font-medium">Location</th>
-                <th class="px-3 py-2 text-left font-medium w-20">Type</th>
+                <th class="px-3 py-2 text-left font-medium w-30">Type</th>
                 <th class="px-3 py-2 text-left font-medium w-20">Allocated</th>
               </tr>
             </thead>
@@ -85,8 +85,8 @@
                 <td class="border px-3 py-2 w-20">
                   <span v-if="location.type === 'Vital'"
                     class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded-sm">Vital</span>
-                  <span v-if="location.type === 'Controlled'"
-                    class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-sm">Controlled</span>
+                  <span v-if="location.type === 'Non-Vital'"
+                    class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-sm">Non-Vital</span>
                   <span v-if="location.type === 'Normal'"
                     class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded-sm">Normal</span>
                 </td>
@@ -181,7 +181,7 @@ export default {
 
       let vitalLocations = allocation.filter((loc) => loc.type === "Vital");
       let controlledLocations = allocation.filter(
-        (loc) => loc.type === "Controlled"
+        (loc) => loc.type === "Non-Vital"
       );
       let normalLocations = allocation.filter((loc) => loc.type === "Normal");
 
