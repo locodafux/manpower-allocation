@@ -2,7 +2,8 @@
   <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 flex-grow">
     <!-- Title Section -->
     <div class="text-center mb-8 sm:mb-12">
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-2 text-transparent bg-clip-text bg-gradient-to-b from-black/80 to-white/80">
+      <h1
+        class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-2 text-transparent bg-clip-text bg-gradient-to-b from-black/80 to-white/80">
         Manpower Allocation
       </h1>
       <p class="text-xs sm:text-xl text-black/80">
@@ -15,35 +16,39 @@
       <div class="w-full lg:w-1/4 flex flex-col space-y-8">
         <div class="rounded-lg bg-black/4 p-6">
           <h3 class="text-sm font-medium text-gray-700 mb-4">
+            Choose Shift
+          </h3>
+          <select v-model="selectedShift"
+            class="mt-4 h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400">
+            <option value="">Choose Shift</option>
+            <option value="AM">AM Shift</option>
+            <option value="PM">PM Shift</option>
+          </select>
+          <button
+            class="mt-4 w-full bg-black/80 text-white py-2 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 mb-4"
+            @click="applyShift(selectedShift)">
+            Set Shift
+          </button>
+          <h3 class="text-sm font-medium text-gray-700 mb-4">
             Enter Total Manpower
           </h3>
-          <input
-            type="number"
-            id="manpower"
+          <input type="number" id="manpower"
             class="h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400"
-            v-model="manpower"
-            placeholder="Enter Total Manpower"
-          />
+            v-model="manpower" placeholder="Enter Total Manpower" />
           <button
             class="mt-4 w-full bg-black/70 text-white py-2 rounded-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-gray-400"
-            @click="allocateManpower"
-          >
+            @click="allocateManpower">
             Allocate Manpower
           </button>
         </div>
 
         <div class="rounded-lg bg-black/4 p-6">
           <h3 class="text-sm font-medium text-gray-700 mb-4">Filters</h3>
-          <input
-            type="text"
-            v-model="searchQuery"
+          <input type="text" v-model="searchQuery"
             class="h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400"
-            placeholder="Search Location"
-          />
-          <select
-            v-model="selectedType"
-            class="mt-4 h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400"
-          >
+            placeholder="Search Location" />
+          <select v-model="selectedType"
+            class="mt-4 h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400">
             <option value="">Filter by Type</option>
             <option value="Vital">Vital</option>
             <option value="Controlled">Controlled</option>
@@ -51,10 +56,11 @@
           </select>
           <button
             class="mt-4 w-full bg-black/80 text-white py-2 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400"
-            @click="applyFilters"
-          >
+            @click="applyFilters">
             Apply Filters
           </button>
+
+
         </div>
       </div>
 
@@ -71,31 +77,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="(location, index) in paginatedData"
-                :key="index"
-                @click="selectRow(index)"
-                class="hover:bg-gray-100 cursor-pointer"
-              >
+              <tr v-for="(location, index) in paginatedData" :key="index" @click="selectRow(index)"
+                class="hover:bg-gray-100 cursor-pointer">
                 <td class="border px-3 py-2 text-gray-700">
                   {{ location.name }}
                 </td>
                 <td class="border px-3 py-2 w-20">
-                  <span
-                    v-if="location.type === 'Vital'"
-                    class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded-sm"
-                    >Vital</span
-                  >
-                  <span
-                    v-if="location.type === 'Controlled'"
-                    class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-sm"
-                    >Controlled</span
-                  >
-                  <span
-                    v-if="location.type === 'Normal'"
-                    class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded-sm"
-                    >Normal</span
-                  >
+                  <span v-if="location.type === 'Vital'"
+                    class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded-sm">Vital</span>
+                  <span v-if="location.type === 'Controlled'"
+                    class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-sm">Controlled</span>
+                  <span v-if="location.type === 'Normal'"
+                    class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded-sm">Normal</span>
                 </td>
                 <td class="border px-3 py-2 text-center text-gray-700 w-20">
                   {{ location.manpower }}
@@ -109,21 +102,15 @@
             <tr>
               <td colspan="6" class="px-4 py-3">
                 <div class="w-full flex justify-between items-center">
-                  <button
-                    @click="previousPage"
-                    :disabled="currentPage === 1"
-                    class="px-4 py-2 bg-gray-200 text-black/80 rounded-md text-sm disabled:opacity-50 hover:bg-black/10 inline-block"
-                  >
+                  <button @click="previousPage" :disabled="currentPage === 1"
+                    class="px-4 py-2 bg-gray-200 text-black/80 rounded-md text-sm disabled:opacity-50 hover:bg-black/10 inline-block">
                     Previous
                   </button>
                   <span class="text-sm mx-4 text-black/80 inline-block">
                     Page {{ currentPage }} of {{ totalPages }}
                   </span>
-                  <button
-                    @click="nextPage"
-                    :disabled="currentPage === totalPages"
-                    class="px-4 py-2 bg-gray-200 text-black/80 rounded-md text-sm disabled:opacity-50 hover:bg-black/10 inline-block"
-                  >
+                  <button @click="nextPage" :disabled="currentPage === totalPages"
+                    class="px-4 py-2 bg-gray-200 text-black/80 rounded-md text-sm disabled:opacity-50 hover:bg-black/10 inline-block">
                     Next
                   </button>
                   <span class="text-sm pl-34 text-black/80 ml-auto inline-block">
@@ -146,19 +133,21 @@
 </template>
 
 <script>
-import locationsData from "./locations/locations.json";
+import firstShift from "./locations/first-shift.json";
+import secondShift from "./locations/second-shift.json";
 
 export default {
   data() {
     return {
       manpower: "",
-      locations: locationsData,
+      locations: [],
       filteredLocations: [],
       currentPage: 1,
       perPage: 10,
       remainingManpower: 0,
       searchQuery: "",
       selectedType: "",
+      selectedShift: "",
       selectedRow: null,
     };
   },
@@ -177,6 +166,10 @@ export default {
       this.selectedRow = this.selectedRow === index ? null : index;
     },
     allocateManpower() {
+      if (!this.selectedShift) {
+        alert("Please select a shift first.");
+        return;
+      }
       let totalManpower = parseInt(this.manpower);
       if (isNaN(totalManpower) || totalManpower < 1) {
         alert("Please enter a valid manpower number.");
@@ -249,6 +242,14 @@ export default {
         this.currentPage++;
       }
     },
+    applyShift(shift) {
+      if (shift === "AM") {
+        this.locations = firstShift
+      }
+      if (shift === "PM") {
+        this.locations = secondShift
+      }
+    }
   },
 };
 </script>
