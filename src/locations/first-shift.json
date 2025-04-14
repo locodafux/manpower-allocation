@@ -1,36 +1,167 @@
 [
-  { "name": "42 AREA Pasig Blvd. / C5 Cnaley Intersection", "type": "Vital", "manpower": 0 },
-  { "name": "43 AREA - Pasig Blvd. C5 / M.Flores Intersection", "type": "Vital", "manpower": 0 },
-  { "name": "44 AREA - Shaw Blvd. / Danny Floro St. Intersection", "type": "Vital", "manpower": 0 },
-  { "name": "44 ECHO - Capt. H. Javier / D. Floro St.", "type": "Vital", "manpower": 0 },
-  { "name": "45 AREA - Shaw Blvd. / W. Capitol / Estancia", "type": "Vital", "manpower": 0 },
-  { "name": "46 AREA - Shaw Blvd. / Pioneer St.", "type": "Vital", "manpower": 0 },
-  { "name": "47 AREA - Shaw Blvd / San Miguel", "type": "Vital", "manpower": 0 },
-  { "name": "48 AREA - Capt. H. Javier / St. Martin St.", "type": "Vital", "manpower": 0 },
-  { "name": "48 ECHO - Capt H. Javier / Meralco Ave.", "type": "Vital", "manpower": 0 },
-  { "name": "48 FOXTROT - Meralco Ave. / St. Paul", "type": "Vital", "manpower": 0 },
-  { "name": "49 AREA - J. Vargas / Meralco Ave.", "type": "Vital", "manpower": 0 },
-  { "name": "49 INDIA - J. Vargas / San Miguel Ave. / ADB Ave.", "type": "Vital", "manpower": 0 },
-  { "name": "49 ECHO - Ortigas Ave. / Meralco Ave.", "type": "Vital", "manpower": 0 },
-  { "name": "49 LIMA - Ortigas Ave. / Lanuza", "type": "Vital", "manpower": 0 },
-  { "name": "49 GOLF - Ortigas Ave. / Green Meadows", "type": "Vital", "manpower": 0 },
-  { "name": "49 OSCAR - Ortigas Ave. / C5 - IPI", "type": "Vital", "manpower": 0 },
-  { "name": "49 JULIET - J. Vargas / Lanuza", "type": "Vital", "manpower": 0 },
-  { "name": "49 SIERRA - Lanuza / St. Martin St.", "type": "Vital", "manpower": 0 },
-
-  { "name": "E. Amang Rodriguez Jr. / Pasig Blvd.", "type": "Non-Vital", "manpower": 0 },
-  { "name": "Pasig Blvd. / RMC", "type": "Non-Vital", "manpower": 0 },
-  { "name": "Shaw Blvd. / Capitol Common", "type": "Non-Vital", "manpower": 0 },
-  { "name": "Brixton / Reliance", "type": "Non-Vital", "manpower": 0 },
-  { "name": "Fairline / BGC Link", "type": "Non-Vital", "manpower": 0 },
-  { "name": "J. Vargas / F. Ortigas Jr.", "type": "Non-Vital", "manpower": 0 },
-  { "name": "San Miguel / Lourdes Ave.", "type": "Non-Vital", "manpower": 0 },
-  { "name": "Pasig Blvd. / Mejia St.", "type": "Non-Vital", "manpower": 0 },
-  { "name": "Pasig Blvd. / St. Lindayag", "type": "Non-Vital", "manpower": 0 },
-  { "name": "Canley Rd. / Yakal St.", "type": "Non-Vital", "manpower": 0 },
-  { "name": "United / Brixton St.", "type": "Non-Vital", "manpower": 0 },
-  { "name": "Pasig Blvd. / Hillcrest Dr.", "type": "Non-Vital", "manpower": 0 },
-  { "name": "St. Martin / Molave St.", "type": "Non-Vital", "manpower": 0 },
-  { "name": "Gate 2 Meralco", "type": "Non-Vital", "manpower": 0 },
-  { "name": "Green Meadows / Temple Drive", "type": "Non-Vital", "manpower": 0 }
+  {
+    "name": "42 AREA - Pasig Blvd. / C5 Canley Intersection",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "44 ECHO - Capt. H. Javier / D. Floro St.",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "47 AREA - Shaw Blvd. / San Miguel",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "48 AREA - Capt. H. Javier / St. Martin St.",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "46 AREA - Shaw Blvd. / Pioneer St.",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "48 ECHO - Capt H. Javier / Meralco Ave.",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "48 FOXTROT - Meralco Ave. / St. Paul",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "49 AREA - J. Vargas / Meralco Ave.",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "49 ECHO - Ortigas Ave. / Meralco Ave.",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "49 JULIET - J. Vargas / Lanuza",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "44 AREA - Shaw Blvd. / Danny Floro St. Intersection",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "49 OSCAR - Ortigas Ave. / C5 - IPI",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "43 AREA - Pasig Blvd. C5 / M. Flores Intersection",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "49 INDIA - J. Vargas / San Miguel Ave. / ADB Ave.",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "49 LIMA - Ortigas Ave. / Lanuza",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "49 SIERRA - Lanuza / St. Martin St.",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "49 GOLF - Ortigas Ave. / Green Meadows",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "45 AREA - Shaw Blvd. / W. Capitol / Estancia",
+    "type": "Vital",
+    "manpower": 0
+  },
+  {
+    "name": "Shaw Blvd. / Capitol Common",
+    "type": "Non-Vital",
+    "manpower": 0
+  },
+  {
+    "name": "Brixton / Reliance",
+    "type": "Non-Vital",
+    "manpower": 0
+  },
+  {
+    "name": "J. Vargas / F. Ortigas Jr.",
+    "type": "Non-Vital",
+    "manpower": 0
+  },
+  {
+    "name": "Fairline / BGC Link",
+    "type": "Non-Vital",
+    "manpower": 0
+  },
+  {
+    "name": "Pasig Blvd. / RMC",
+    "type": "Non-Vital",
+    "manpower": 0
+  },
+  {
+    "name": "Pasig Blvd. / Hillcrest Dr.",
+    "type": "Non-Vital",
+    "manpower": 0
+  },
+  {
+    "name": "Gate 2 Meralco",
+    "type": "Non-Vital",
+    "manpower": 0
+  },
+  {
+    "name": "Pasig Blvd. / St. Lindayag",
+    "type": "Non-Vital",
+    "manpower": 0
+  },
+  {
+    "name": "Pasig Blvd. / Mejia St.",
+    "type": "Non-Vital",
+    "manpower": 0
+  },
+  {
+    "name": "E. Amang Rodriguez Jr. / Pasig Blvd.",
+    "type": "Non-Vital",
+    "manpower": 0
+  },
+  {
+    "name": "St. Martin / Molave St.",
+    "type": "Non-Vital",
+    "manpower": 0
+  },
+  {
+    "name": "United / Brixton St.",
+    "type": "Non-Vital",
+    "manpower": 0
+  },
+  {
+    "name": "Canley Rd. / Yakal St.",
+    "type": "Non-Vital",
+    "manpower": 0
+  },
+  {
+    "name": "San Miguel / Lourdes Ave.",
+    "type": "Non-Vital",
+    "manpower": 0
+  },
+  {
+    "name": "Green Meadows / Temple Drive",
+    "type": "Non-Vital",
+    "manpower": 0
+  }
 ]
