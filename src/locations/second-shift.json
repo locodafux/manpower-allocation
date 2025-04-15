@@ -1,167 +1,34 @@
 [
-  {
-    "name": "42 AREA - Pasig Blvd. / C5 Canley Intersection",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "43 AREA - Pasig Blvd. C5 / M.Flores Intersection",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "44 ECHO - Capt. H. Javier / D. Floro St.",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "48 AREA - Capt. H. Javier / St. Martin St.",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "49 ECHO - Ortigas Ave. / Meralco Ave.",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "48 FOXTROT - Meralco Ave. / St. Paul",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "49 INDIA - J. Vargas / San Miguel Ave. / ADB Ave.",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "48 ECHO - Capt H. Javier / Meralco Ave.",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "49 GOLF - Ortigas Ave. / Green Meadows",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "49 LIMA - Ortigas Ave. / Lanuza",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "49 AREA - J. Vargas / Meralco Ave.",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "46 AREA - Shaw Blvd. / Pioneer St.",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "47 AREA - Shaw Blvd / San Miguel",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "45 AREA - Shaw Blvd. / W. Capitol / Estancia",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "49 SIERRA - Lanuza / St. Martin St.",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "44 AREA - Shaw Blvd. / Danny Floro St. Intersection",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "49 OSCAR - Ortigas Ave. / C5 - IPI",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "49 JULIET - J. Vargas / Lanuza",
-    "type": "Vital",
-    "manpower": 0
-  },
-  {
-    "name": "Shaw Blvd. / Capitol Common",
-    "type": "Non-Vital",
-    "manpower": 0
-  },
-  {
-    "name": "Brixton / Reliance",
-    "type": "Non-Vital",
-    "manpower": 0
-  },
-  {
-    "name": "Gate 2 Meralco",
-    "type": "Non-Vital",
-    "manpower": 0
-  },
-  {
-    "name": "Fairline / BGC Link",
-    "type": "Non-Vital",
-    "manpower": 0
-  },
-  {
-    "name": "Pasig Blvd. / Hillcrest Dr.",
-    "type": "Non-Vital",
-    "manpower": 0
-  },
-  {
-    "name": "Pasig Blvd. / RMC",
-    "type": "Non-Vital",
-    "manpower": 0
-  },
-  {
-    "name": "San Miguel / Lourdes Ave.",
-    "type": "Non-Vital",
-    "manpower": 0
-  },
-  {
-    "name": "Green Meadows / Temple Drive",
-    "type": "Non-Vital",
-    "manpower": 0
-  },
-  {
-    "name": "J. Vargas / F. Ortigas Jr.",
-    "type": "Non-Vital",
-    "manpower": 0
-  },
-  {
-    "name": "St. Martin / Molave St.",
-    "type": "Non-Vital",
-    "manpower": 0
-  },
-  {
-    "name": "Pasig Blvd. / St. Lindayag",
-    "type": "Non-Vital",
-    "manpower": 0
-  },
-  {
-    "name": "Canley Rd. / Yakal St.",
-    "type": "Non-Vital",
-    "manpower": 0
-  },
-  {
-    "name": "E. Amang Rodriguez Jr. / Pasig Blvd.",
-    "type": "Non-Vital",
-    "manpower": 0
-  },
-  {
-    "name": "Pasig Blvd. / Mejia St.",
-    "type": "Non-Vital",
-    "manpower": 0
-  },
-  {
-    "name": "United / Brixton St.",
-    "type": "Non-Vital",
-    "manpower": 0
-  }
+  { "rank": 1, "name": "42 AREA - Pasig Blvd. / C5 Canley Intersection" },
+  { "rank": 2, "name": "43 AREA - Pasig Blvd. C5 / M.Flores Intersection" },
+  { "rank": 3, "name": "44 ECHO - Capt. H. Javier / D. Floro St." },
+  { "rank": 4, "name": "Shaw Blvd. / Capitol Common" },
+  { "rank": 5, "name": "48 AREA - Capt. H. Javier / St. Martin St." },
+  { "rank": 6, "name": "49 ECHO - Ortigas Ave. / Meralco Ave." },
+  { "rank": 7, "name": "47 AREA - Shaw Blvd / San Miguel" },
+  { "rank": 8, "name": "49 INDIA - J. Vargas / San Miguel Ave. / ADB Ave." },
+  { "rank": 9, "name": "49 OSCAR - Ortigas Ave. / C5 - IPI" },
+  { "rank": 10, "name": "48 ECHO - Capt H. Javier / Meralco Ave." },
+  { "rank": 11, "name": "46 AREA - Shaw Blvd. / Pioneer St." },
+  { "rank": 12, "name": "49 AREA - J. Vargas / Meralco Ave." },
+  { "rank": 13, "name": "49 JULIET - J. Vargas / Lanuza" },
+  { "rank": 14, "name": "Fairline / BGC Link" },
+  { "rank": 15, "name": "48 FOXTROT - Meralco Ave. / St. Paul" },
+  { "rank": 16, "name": "Brixton / Reliance" },
+  { "rank": 17, "name": "44 AREA - Shaw Blvd. / Danny Floro St. Intersection" },
+  { "rank": 18, "name": "E. Amang Rodriguez Jr. / Pasig Blvd." },
+  { "rank": 19, "name": "Pasig Blvd. / RMC" },
+  { "rank": 20, "name": "J. Vargas / F. Ortigas Jr." },
+  { "rank": 21, "name": "49 LIMA - Ortigas Ave. / Lanuza" },
+  { "rank": 22, "name": "East West Capitol" },
+  { "rank": 23, "name": "49 SIERRA - Lanuza / St. Martin St." },
+  { "rank": 24, "name": "United / Brixton St." },
+  { "rank": 25, "name": "Gate 2 Meralco" },
+  { "rank": 26, "name": "Pasig Blvd. / Hillcrest Dr." },
+  { "rank": 27, "name": "San Miguel / Lourdes Ave." },
+  { "rank": 28, "name": "Green Meadows / Temple Drive" },
+  { "rank": 29, "name": "St. Martin / Molave St." },
+  { "rank": 30, "name": "Pasig Blvd. / St. Lindayag" },
+  { "rank": 31, "name": "Canley Rd. / Yakal St." },
+  { "rank": 32, "name": "Pasig Blvd. / Mejia St." }
 ]

@@ -66,8 +66,8 @@
           <table class="w-full table-auto text-sm">
             <thead class="bg-black/80 text-white">
               <tr>
+                <th class="px-3 py-2 text-left font-medium w-30">Rank</th>
                 <th class="px-3 py-2 text-left font-medium">Location</th>
-                <th class="px-3 py-2 text-left font-medium w-30">Type</th>
                 <th class="px-3 py-2 text-left font-medium w-20">Allocated</th>
               </tr>
             </thead>
@@ -75,14 +75,12 @@
               <tr v-for="(location, index) in paginatedData" :key="index" @click="selectRow(index)"
                 class="hover:bg-gray-100 cursor-pointer">
                 <td class="border px-3 py-2 text-gray-700">
+                  {{ location.rank }}
+                </td>
+                <td class="border px-3 py-2 text-gray-700">
                   {{ location.name }}
                 </td>
-                <td class="border px-3 py-2 w-20">
-                  <span v-if="location.type === 'Vital'"
-                    class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded-sm">Vital</span>
-                  <span v-if="location.type === 'Non-Vital'"
-                    class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-sm">Non-Vital</span>
-                </td>
+
                 <td class="border px-3 py-2 text-center text-gray-700 w-20">
                   {{ location.manpower }}
                 </td>
@@ -157,48 +155,67 @@ export default {
     selectRow(index) {
       this.selectedRow = this.selectedRow === index ? null : index;
     },
+
     allocateManpower() {
       if (!this.selectedShift) {
         alert("Please select a shift first.");
         return;
       }
 
-      let totalManpower = parseInt(this.manpower);
-      if (isNaN(totalManpower) || totalManpower < 1) {
-        alert("Please enter a valid manpower number.");
+      const totalManpower = parseInt(this.manpower);
+      if (isNaN(totalManpower) || totalManpower < 0) {
+        alert("Please enter a valid positive manpower number.");
         return;
       }
 
-      let allocation = this.locations.map((loc) => ({ ...loc, manpower: 0 }));
+      // Create fresh copy sorted by rank (1-32)
+      const allocation = [...this.locations].sort((a, b) => a.rank - b.rank);
+
+      // Reset all manpower to 0
+      allocation.forEach(loc => {
+        if (loc) loc.manpower = 0;
+      });
+
       let remaining = totalManpower;
 
-      let vitalLocations = allocation.filter((loc) => loc.type === "Vital");
-      let nonVitalLocations = allocation.filter(
-        (loc) => loc.type === "Non-Vital"
-      );
-
-      let round = 0;
-      while (remaining > 0) {
-        for (let loc of vitalLocations) {
-          if (loc.manpower === round && remaining > 0) {
-            loc.manpower += 1;
-            remaining -= 1;
-          }
+      // Phase 1: Allocate 1 to top 1-10 (base allocation)
+      for (let i = 0; i < 10 && remaining > 0; i++) {
+        if (allocation[i]) {
+          allocation[i].manpower = 1;
+          remaining -= 1;
         }
-
-        for (let loc of nonVitalLocations) {
-          if (loc.manpower === round && remaining > 0) {
-            loc.manpower += 1;
-            remaining -= 1;
-          }
-        }
-
-        round += 1;
       }
 
+      // Phase 2: Add to top 1-5 (max 3 total)
+      for (let i = 0; i < 5 && remaining > 0; i++) {
+        if (allocation[i] && allocation[i].manpower < 3) {
+          const add = Math.min(3 - allocation[i].manpower, remaining);
+          allocation[i].manpower += add;
+          remaining -= add;
+        }
+      }
+
+      // Phase 3: Add to ranks 6-10 (max 2 total)
+      for (let i = 5; i < 10 && remaining > 0; i++) {
+        if (allocation[i] && allocation[i].manpower < 2) {
+          const add = Math.min(2 - allocation[i].manpower, remaining);
+          allocation[i].manpower += add;
+          remaining -= add;
+        }
+      }
+
+      // Phase 4: Add to ranks 11-32 (max 1)
+      for (let i = 10; i < 32 && remaining > 0; i++) {
+        if (allocation[i] && allocation[i].manpower < 1) {
+          allocation[i].manpower = 1;
+          remaining -= 1;
+        }
+      }
+
+      // No further distribution - remaining manpower stays as is
       this.locations = allocation;
       this.filteredLocations = allocation;
-      this.remainingManpower = Math.max(remaining, 0);
+      this.remainingManpower = remaining;
     },
 
     applyFilters() {
