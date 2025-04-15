@@ -178,24 +178,33 @@ export default {
 
       let remaining = totalManpower;
 
-      // Phase 1: Allocate 1 to top 1-10 (base allocation)
-      for (let i = 0; i < 10 && remaining > 0; i++) {
+      // Phase 1: Allocate 2 to top 1-5
+      for (let i = 0; i < 5 && remaining > 0; i++) {
+        if (allocation[i]) {
+          const add = Math.min(2, remaining);
+          allocation[i].manpower = add;
+          remaining -= add;
+        }
+      }
+
+      // Phase 2: Allocate 1 to ranks 6-10
+      for (let i = 5; i < 10 && remaining > 0; i++) {
         if (allocation[i]) {
           allocation[i].manpower = 1;
           remaining -= 1;
         }
       }
 
-      // Phase 2: Add to top 1-5 (max 3 total)
+      // Phase 3: Add remaining to top 1-5 (if any left)
       for (let i = 0; i < 5 && remaining > 0; i++) {
-        if (allocation[i] && allocation[i].manpower < 3) {
-          const add = Math.min(3 - allocation[i].manpower, remaining);
+        if (allocation[i]) {
+          const add = Math.min(remaining, 1); // Can add max 1 more to make it 3 total
           allocation[i].manpower += add;
           remaining -= add;
         }
       }
 
-      // Phase 3: Add to ranks 6-10 (max 2 total)
+      // Phase 4: Add remaining to ranks 6-10 (if any left)
       for (let i = 5; i < 10 && remaining > 0; i++) {
         if (allocation[i] && allocation[i].manpower < 2) {
           const add = Math.min(2 - allocation[i].manpower, remaining);
@@ -204,7 +213,7 @@ export default {
         }
       }
 
-      // Phase 4: Add to ranks 11-32 (max 1)
+      // Phase 5: Add to ranks 11-32 (max 1)
       for (let i = 10; i < 32 && remaining > 0; i++) {
         if (allocation[i] && allocation[i].manpower < 1) {
           allocation[i].manpower = 1;
@@ -212,7 +221,6 @@ export default {
         }
       }
 
-      // No further distribution - remaining manpower stays as is
       this.locations = allocation;
       this.filteredLocations = allocation;
       this.remainingManpower = remaining;
