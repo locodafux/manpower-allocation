@@ -178,47 +178,91 @@ export default {
 
       let remaining = totalManpower;
 
-      // PHASE 1: First ensure all top 1-10 get at least 1
-      for (let i = 0; i < 10 && remaining > 0; i++) {
-        if (allocation[i]) {
-          allocation[i].manpower = 1;
-          remaining -= 1;
+      if (totalManpower <= 10) {
+        // PHASE 1: First ensure all top 1-10 get at least 1
+        for (let i = 0; i < 10 && remaining > 0; i++) {
+          if (allocation[i]) {
+            allocation[i].manpower = 1;
+            remaining -= 1;
+          }
         }
       }
 
-      // PHASE 2: Top up 1-5 to max 2
-      for (let i = 0; i < 5 && remaining > 0; i++) {
-        if (allocation[i] && allocation[i].manpower < 2) {
-          const add = Math.min(2 - allocation[i].manpower, remaining);
-          allocation[i].manpower += add;
-          remaining -= add;
+      if (totalManpower >= 11 && totalManpower <= 25) {
+        // PHASE 2: Top up top 3 to max 2
+        for (let i = 0; i < 3 && remaining > 0; i++) {
+          if (allocation[i] && allocation[i].manpower < 2) {
+            const add = Math.min(2 - allocation[i].manpower, remaining);
+            allocation[i].manpower += add;
+            remaining -= add;
+          }
         }
+
+
+        // PHASE 7: Allocate to remaining ranks (max 1)
+        for (let i = 3; i < allocation.length && remaining > 0; i++) {
+          if (allocation[i] && allocation[i].manpower < 1) {
+            allocation[i].manpower = 1;
+            remaining -= 1;
+          }
+        }
+
       }
 
-      // PHASE 3: Top up 6-10 to max 2
-      for (let i = 5; i < 10 && remaining > 0; i++) {
-        if (allocation[i] && allocation[i].manpower < 2) {
-          const add = Math.min(2 - allocation[i].manpower, remaining);
-          allocation[i].manpower += add;
-          remaining -= add;
+      if (totalManpower >= 26 && totalManpower <= 45) {
+        // PHASE 2: Top up top 3 to max 2
+        for (let i = 0; i < 3 && remaining > 0; i++) {
+          if (allocation[i] && allocation[i].manpower < 2) {
+            const add = Math.min(3 - allocation[i].manpower, remaining);
+            allocation[i].manpower += add;
+            remaining -= add;
+          }
         }
+
+        for (let i = 3; i < 10 && remaining > 0; i++) {
+          if (allocation[i] && allocation[i].manpower < 2) {
+            const add = Math.min(2 - allocation[i].manpower, remaining);
+            allocation[i].manpower += add;
+            remaining -= add;
+          }
+        }
+
+        // PHASE 7: Allocate to remaining ranks (max 1)
+        for (let i = 10; i < allocation.length && remaining > 0; i++) {
+          if (allocation[i] && allocation[i].manpower < 1) {
+            allocation[i].manpower = 1;
+            remaining -= 1;
+          }
+        }
+
       }
 
-      // PHASE 4: Special case - add 1 more to 1-5 (max 3) after 6-10 reach max 2
-      for (let i = 0; i < 5 && remaining > 0; i++) {
-        if (allocation[i] && allocation[i].manpower < 3) {
-          const add = Math.min(3 - allocation[i].manpower, remaining);
-          allocation[i].manpower += add;
-          remaining -= add;
+      if (totalManpower >= 46) {
+        // PHASE 2: Top up top 3 to max 2
+        for (let i = 0; i < 3 && remaining > 0; i++) {
+          if (allocation[i] && allocation[i].manpower < 2) {
+            const add = Math.min(3 - allocation[i].manpower, remaining);
+            allocation[i].manpower += add;
+            remaining -= add;
+          }
         }
-      }
 
-      // PHASE 5: Allocate to ranks 11-32 (max 1)
-      for (let i = 10; i < 32 && remaining > 0; i++) {
-        if (allocation[i] && allocation[i].manpower < 1) {
-          allocation[i].manpower = 1;
-          remaining -= 1;
+        for (let i = 3; i < 15 && remaining > 0; i++) {
+          if (allocation[i] && allocation[i].manpower < 2) {
+            const add = Math.min(2 - allocation[i].manpower, remaining);
+            allocation[i].manpower += add;
+            remaining -= add;
+          }
         }
+
+        // PHASE 7: Allocate to remaining ranks (max 1)
+        for (let i = 10; i < allocation.length && remaining > 0; i++) {
+          if (allocation[i] && allocation[i].manpower < 1) {
+            allocation[i].manpower = 1;
+            remaining -= 1;
+          }
+        }
+
       }
 
       this.locations = allocation;
