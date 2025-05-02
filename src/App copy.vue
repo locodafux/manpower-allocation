@@ -1,25 +1,12 @@
 <template>
   <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 flex-grow">
-    <!-- Toast Notification -->
-    <div v-if="toast.show" class="fixed top-4 right-4 z-50">
-      <div :class="['flex items-center p-4 rounded-lg shadow-lg text-white', 
-                   toast.type === 'error' ? 'bg-red-500' : 'bg-[#041D56]']">
-        <span>{{ toast.message }}</span>
-        <button @click="toast.show = false" class="ml-4">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-      </div>
-    </div>
-
     <!-- Title Section -->
     <div class="text-center mb-8 sm:mb-12">
       <h1
-        class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-2 text-transparent bg-clip-text bg-gradient-to-b from-[#041D56] to-[#276DAB]">
+        class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-2 text-transparent bg-clip-text bg-gradient-to-b from-black/80 to-white/80">
         Manpower Allocation
       </h1>
-      <p class="text-xs sm:text-xl text-[#041D56]/80">
+      <p class="text-xs sm:text-xl text-black/80">
         Allocate manpower to the locations below
       </p>
     </div>
@@ -27,45 +14,45 @@
     <div class="flex flex-col lg:flex-row gap-8 justify-center">
       <!-- Filters Section -->
       <div class="w-full lg:w-1/4 flex flex-col space-y-8">
-        <div class="rounded-lg bg-[#276DAB]/10 p-6">
-          <h3 class="text-sm font-medium text-[#041D56] mb-4">Choose Shift</h3>
+        <div class="rounded-lg bg-black/4 p-6">
+          <h3 class="text-sm font-medium text-gray-700 mb-4">Choose Shift</h3>
           <select v-model="selectedShift"
-            class="mt-4 h-10 w-full rounded-md border border-[#102574]/30 px-3 py-2 text-sm text-[#041D56] focus:outline-none focus:ring-2 focus:ring-[#276DAB] hover:border-[#276DAB]">
+            class="mt-4 h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400">
             <option value="">Choose Shift</option>
             <option value="AM">AM Shift</option>
             <option value="PM">PM Shift</option>
           </select>
           <button
-            class="mt-4 w-full bg-[#041D56] text-white py-2 rounded-md hover:bg-[#102574] focus:outline-none focus:ring-2 focus:ring-[#276DAB] mb-4 transition-colors duration-200"
+            class="mt-4 w-full bg-black/80 text-white py-2 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 mb-4"
             @click="applyShift(selectedShift)">
             Set Shift
           </button>
-          <h3 class="text-sm font-medium text-[#041D56] mb-4">
+          <h3 class="text-sm font-medium text-gray-700 mb-4">
             Enter Total Manpower
           </h3>
           <input type="number" id="manpower"
-            class="h-10 w-full rounded-md border border-[#102574]/30 px-3 py-2 text-sm text-[#041D56] focus:outline-none focus:ring-2 focus:ring-[#276DAB] hover:border-[#276DAB]"
+            class="h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400"
             v-model="manpower" placeholder="Enter Total Manpower" />
           <button
-            class="mt-4 w-full bg-[#102574] text-white py-2 rounded-md hover:bg-[#041D56] focus:outline-none focus:ring-2 focus:ring-[#276DAB] transition-colors duration-200"
+            class="mt-4 w-full bg-black/70 text-white py-2 rounded-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-gray-400"
             @click="allocateManpower">
             Allocate Manpower
           </button>
         </div>
 
-        <div class="rounded-lg bg-[#276DAB]/10 p-6">
-          <h3 class="text-sm font-medium text-[#041D56] mb-4">Filters</h3>
+        <div class="rounded-lg bg-black/4 p-6">
+          <h3 class="text-sm font-medium text-gray-700 mb-4">Filters</h3>
           <input type="text" v-model="searchQuery"
-            class="h-10 w-full rounded-md border border-[#102574]/30 px-3 py-2 text-sm text-[#041D56] focus:outline-none focus:ring-2 focus:ring-[#276DAB] hover:border-[#276DAB]"
+            class="h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400"
             placeholder="Search Location" />
           <select v-model="selectedType"
-            class="mt-4 h-10 w-full rounded-md border border-[#102574]/30 px-3 py-2 text-sm text-[#041D56] focus:outline-none focus:ring-2 focus:ring-[#276DAB] hover:border-[#276DAB]">
+            class="mt-4 h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400">
             <option value="">Filter by Type</option>
             <option value="Vital">Vital</option>
             <option value="Non-Vital">Non-Vital</option>
           </select>
           <button
-            class="mt-4 w-full bg-[#041D56] text-white py-2 rounded-md hover:bg-[#102574] focus:outline-none focus:ring-2 focus:ring-[#276DAB] transition-colors duration-200"
+            class="mt-4 w-full bg-black/80 text-white py-2 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400"
             @click="applyFilters">
             Apply Filters
           </button>
@@ -73,11 +60,11 @@
       </div>
 
       <!-- Allocation Table Section -->
-      <div class="w-full lg:w-3/4 bg-[#276DAB]/10 rounded-lg p-6">
+      <div class="w-full lg:w-3/4 bg-black/4 rounded-lg p-6">
         <div v-if="paginatedData.length">
           <!-- Table Section -->
           <table class="w-full table-auto text-sm">
-            <thead class="bg-[#041D56] text-white">
+            <thead class="bg-black/80 text-white">
               <tr>
                 <th class="px-3 py-2 text-left font-medium w-30">Rank</th>
                 <th class="px-3 py-2 text-left font-medium">Location</th>
@@ -86,15 +73,15 @@
             </thead>
             <tbody>
               <tr v-for="(location, index) in paginatedData" :key="index" @click="selectRow(index)"
-                class="hover:bg-[#276DAB]/20 cursor-pointer transition-colors duration-200">
-                <td class="border px-3 py-2 text-[#041D56]">
+                class="hover:bg-gray-100 cursor-pointer">
+                <td class="border px-3 py-2 text-gray-700">
                   {{ location.rank }}
                 </td>
-                <td class="border px-3 py-2 text-[#041D56]">
+                <td class="border px-3 py-2 text-gray-700">
                   {{ location.name }}
                 </td>
 
-                <td class="border px-3 py-2 text-center text-[#041D56] w-20">
+                <td class="border px-3 py-2 text-center text-gray-700 w-20">
                   {{ location.manpower }}
                 </td>
               </tr>
@@ -107,17 +94,17 @@
               <td colspan="6" class="px-4 py-3">
                 <div class="w-full flex justify-between items-center">
                   <button @click="previousPage" :disabled="currentPage === 1"
-                    class="px-4 py-2 bg-[#276DAB]/20 text-[#041D56] rounded-md text-sm disabled:opacity-50 hover:bg-[#276DAB]/30 hover:text-[#102574] inline-block transition-colors duration-200">
+                    class="px-4 py-2 bg-gray-200 text-black/80 rounded-md text-sm disabled:opacity-50 hover:bg-black/10 inline-block">
                     Previous
                   </button>
-                  <span class="text-sm mx-4 text-[#041D56] inline-block">
+                  <span class="text-sm mx-4 text-black/80 inline-block">
                     Page {{ currentPage }} of {{ totalPages }}
                   </span>
                   <button @click="nextPage" :disabled="currentPage === totalPages"
-                    class="px-4 py-2 bg-[#276DAB]/20 text-[#041D56] rounded-md text-sm disabled:opacity-50 hover:bg-[#276DAB]/30 hover:text-[#102574] inline-block transition-colors duration-200">
+                    class="px-4 py-2 bg-gray-200 text-black/80 rounded-md text-sm disabled:opacity-50 hover:bg-black/10 inline-block">
                     Next
                   </button>
-                  <span class="text-sm pl-34 text-[#041D56] ml-auto inline-block">
+                  <span class="text-sm pl-34 text-black/80 ml-auto inline-block">
                     Remaining Manpower: {{ remainingManpower }}
                   </span>
                 </div>
@@ -126,7 +113,7 @@
           </tfoot>
         </div>
         <div v-else class="flex items-center justify-center h-full">
-          <p class="text-lg text-[#041D56]/70">
+          <p class="text-lg text-gray-500">
             Your manpower allocation results will be shown here.
           </p>
         </div>
@@ -152,11 +139,6 @@ export default {
       selectedType: "",
       selectedShift: "",
       selectedRow: null,
-      toast: {
-        show: false,
-        message: '',
-        type: 'info' // 'info' or 'error'
-      }
     };
   },
   computed: {
@@ -170,30 +152,19 @@ export default {
     },
   },
   methods: {
-    showToast(message, type = 'info') {
-      this.toast = {
-        show: true,
-        message,
-        type
-      };
-      setTimeout(() => {
-        this.toast.show = false;
-      }, 5000);
-    },
-
     selectRow(index) {
       this.selectedRow = this.selectedRow === index ? null : index;
     },
 
     allocateManpower() {
       if (!this.selectedShift) {
-        this.showToast("Please select a shift first.", "error");
+        alert("Please select a shift first.");
         return;
       }
 
       const totalManpower = parseInt(this.manpower);
       if (isNaN(totalManpower) || totalManpower < 0) {
-        this.showToast("Please enter a valid positive manpower number.", "error");
+        alert("Please enter a valid positive manpower number.");
         return;
       }
 
@@ -227,6 +198,7 @@ export default {
           }
         }
 
+
         // PHASE 7: Allocate to remaining ranks (max 1)
         for (let i = 3; i < allocation.length && remaining > 0; i++) {
           if (allocation[i] && allocation[i].manpower < 1) {
@@ -234,6 +206,7 @@ export default {
             remaining -= 1;
           }
         }
+
       }
 
       if (totalManpower >= 26 && totalManpower <= 45) {
@@ -261,6 +234,7 @@ export default {
             remaining -= 1;
           }
         }
+
       }
 
       if (totalManpower >= 46) {
@@ -288,12 +262,12 @@ export default {
             remaining -= 1;
           }
         }
+
       }
 
       this.locations = allocation;
       this.filteredLocations = allocation;
       this.remainingManpower = remaining;
-      this.showToast("Manpower allocated successfully!");
     },
 
     applyFilters() {
@@ -335,7 +309,10 @@ export default {
       } else if (shift === "PM") {
         this.locations = secondShift;
       }
+
     },
+
+
   },
 };
 </script>
@@ -356,21 +333,9 @@ td {
 
 button:disabled {
   cursor: not-allowed;
-  opacity: 0.5;
 }
 
-/* Smooth transitions for hover effects */
-button, input, select, tr {
-  transition: all 0.2s ease-in-out;
-}
-
-/* Custom hover effects */
-button:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(4, 29, 86, 0.2);
-}
-
-tr:hover {
-  transform: translateX(2px);
+button:hover {
+  background-color: #333;
 }
 </style>
