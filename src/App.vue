@@ -291,7 +291,7 @@ export default {
           remaining -= add;
         }
 
-        for (let i = 5; i < 15 && i < allocation.length && remaining > 0; i++) {
+        for (let i = 5; i < 20 && i < allocation.length && remaining > 0; i++) {
           const add = Math.min(2 - allocation[i].manpower, remaining);
           allocation[i].manpower += add;
           remaining -= add;
